@@ -1,0 +1,22 @@
+{
+  "api_version": "^3.0",
+  "authors": "Andreas Bogossian",
+  "name": "Math Symbols",
+  "icon": "images/icon.png",
+  "triggers": {
+    "math": {
+      "name": "Math Symbols",
+      "description": "Search math symbols by LaTeX name, Unicode name or code point",
+      "default_keyword": "m"
+    }
+  },
+  "preferences": {
+    "max_results": {
+      "name": "Max results",
+      "type": "number",
+      "default_value": 10,
+      "min": 1,
+      "max": 50
+    }
+  }
+}
