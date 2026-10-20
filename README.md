@@ -2,7 +2,19 @@
 
 A [Ulauncher](https://ulauncher.io) 6 extension that searches math symbols and copies them to the clipboard. Type `m sum`, press Enter, and ∑ is on the clipboard.
 
+![Searching m sigma and m gamma in Ulauncher, then opening the copy actions for γ with Alt+Enter](images/demo.gif)
+
 It needs Ulauncher 6 (extension API v3) and does not run on Ulauncher 5.
+
+## Install
+
+In Ulauncher's preferences, open Extensions, click Add extension and paste:
+
+```
+https://github.com/AJBogo9/ulauncher-math-symbols
+```
+
+Or from a terminal: `ulauncher install https://github.com/AJBogo9/ulauncher-math-symbols`
 
 ## Usage
 

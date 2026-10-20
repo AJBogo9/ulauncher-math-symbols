@@ -2,6 +2,7 @@
   "api_version": "^3.0",
   "authors": "Andreas Bogossian",
   "name": "Math Symbols",
+  "description": "Search math symbols by LaTeX name, nickname or Unicode name, and copy them to the clipboard",
   "icon": "images/icon.png",
   "triggers": {
     "math": {
