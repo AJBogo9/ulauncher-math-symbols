@@ -2,7 +2,7 @@
 
 A [Ulauncher](https://ulauncher.io) 6 extension that searches math symbols and copies them to the clipboard. Type `m sum`, press Enter, and ∑ is on the clipboard.
 
-![Searching m sigma and m gamma in Ulauncher, then opening the copy actions for γ with Alt+Enter](images/demo.gif)
+![Searching m alpha, m sigma and m gamma in Ulauncher, then opening the copy actions for γ with Alt+Enter](images/demo.gif)
 
 It needs Ulauncher 6 (extension API v3) and does not run on Ulauncher 5.
 
@@ -44,7 +44,7 @@ Enter copies the symbol. Alt+Enter lists the actions: copy the symbol, its LaTeX
 
 LaTeX names ignore backslashes, braces and spaces, so `mathbb R`, `\mathbb{R}` and `mathbbR` are the same query. Styled letters from the Mathematical Alphanumeric block (𝕣, 𝐱) come after other matches of the same kind.
 
-The LaTeX names follow what LaTeX draws: `\epsilon` is ϵ and `\varepsilon` is ε, `\phi` is ϕ and `\varphi` is φ, and `\implies` is ⟹ (⇒ is `\Rightarrow`). As in standard LaTeX, `\mathbb` and `\mathcal` cover capitals only, plus digits for `\mathbb`; 𝕣 is found by its name.
+Each LaTeX name gives the symbol LaTeX draws for it. `\epsilon` is ϵ and `\varepsilon` is ε, `\phi` is ϕ and `\varphi` is φ, and `\implies` is ⟹ (⇒ is `\Rightarrow`). As in standard LaTeX, `\mathbb` and `\mathcal` cover capitals only, plus digits for `\mathbb`; 𝕣 is found by its name.
 
 ### Preferences
 
@@ -53,7 +53,7 @@ The LaTeX names follow what LaTeX draws: `\epsilon` is ϵ and `\varepsilon` is �
 
 ## Development
 
-Tests run on the system Python. Ulauncher starts extensions with it, and the Unicode names come from its `unicodedata` (Unicode 15.0 on Python 3.12). `tests/test_main.py` builds the extension against the installed Ulauncher package, so the venv sees system site-packages.
+Tests run on the system Python, the one Ulauncher starts extensions with. The Unicode names come from its `unicodedata` (Unicode 15.0 on Python 3.12). `tests/test_main.py` builds the extension against the installed Ulauncher package, so the venv sees system site-packages.
 
 ```sh
 uv venv --system-site-packages --python /usr/bin/python3
@@ -79,7 +79,7 @@ ulauncher start -v
 
 Ulauncher starts extensions when it starts, so restart it after each change. In Ulauncher 6:
 
-- `pkill ulauncher` matches only the `/bin/sh` wrapper, while the app runs as `python3 -m ulauncher`. That stops the systemd service, whose cleanup takes the app down too, but a copy started from a terminal keeps running.
+- `pkill ulauncher` matches only the `/bin/sh` wrapper, while the app runs as `python3 -m ulauncher`. That stops the systemd service, whose cleanup takes the app down too. A copy started from a terminal keeps running.
 - `ulauncher -v` means `ulauncher show -v` and only shows the window. `ulauncher start -v` starts the app with debug logs in the terminal.
 
 To go back to the background service, stop the terminal copy the same way and run `systemctl --user start ulauncher`.

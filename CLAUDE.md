@@ -10,7 +10,7 @@ Searches math symbols in Ulauncher (keyword `m`) and copies them. Usage and the 
   - The `search()` docstring lists the ranking tiers.
 - `main.py`: the extension. `SymbolResult` declares `char`, `latex`, `codepoint`; the action ids are those keys, so activation copies `result[action_id]`.
 - `manifest.json`: trigger `math` (keyword `m`), number preference `max_results`.
-- `tests/test_search.py`: top results, and every alias resolving to its own symbol, which catches duplicate aliases. `tests/test_main.py`: builds `MathSymbols` against the installed Ulauncher, with a socketpair for `SOCKETPAIR_FD`.
+- `tests/test_search.py`: top results, and every alias resolving to its own symbol (this catches duplicate aliases). `tests/test_main.py`: builds `MathSymbols` against the installed Ulauncher, with a socketpair for `SOCKETPAIR_FD`.
 - `scripts/try.py`; `scripts/dev-install.sh` symlinks the repo to `~/.local/share/ulauncher/extensions/math-symbols` (the dir name is the extension id).
 
 ## Commands
@@ -21,7 +21,7 @@ Searches math symbols in Ulauncher (keyword `m`) and copies them. Usage and the 
 
 ## Ulauncher 6 API, checked in 6.0.0~beta35
 
-Source: /usr/lib/python3/dist-packages/ulauncher. It is a beta, so recheck there before trusting notes online, most of which use the v2 API.
+Source: /usr/lib/python3/dist-packages/ulauncher. It is a beta, so recheck there before trusting notes online. Most of them use the v2 API.
 
 - `from ulauncher.api import Extension, Result, effects`. Override `on_input(query, trigger_id)` and return a list of `Result`; a generator streams (`yield result` appends, `yield [results]` replaces). `api/extension.py`
 - `query` is the text after the keyword. `internals/query.py` says it is None when nothing follows the keyword; `main.py` treats None as empty.
@@ -29,7 +29,7 @@ Source: /usr/lib/python3/dist-packages/ulauncher. It is a beta, so recheck there
 - The extension caches the Results it sent for the current request, and `on_result_activation(action_id, result)` receives that same object (`_assign_result_ids` in `api/extension.py`).
 - Enter runs the first key of `actions`; Alt+Enter or right click lists them. A result without actions does nothing on Enter, so it works as a hint row. `core.py`, `activate_result`
 - Copy with `self.clipboard_store(text)`, then return `effects.close_window()`.
-- Names render as plain text, not Pango markup, unless the result is `highlightable` or `searchable`; descriptions go through `html.unescape`. `ui/result_widget.py`
+- Names render as plain text (no Pango markup) unless the result is `highlightable` or `searchable`; descriptions go through `html.unescape`. `ui/result_widget.py`
 - `self.preferences[id]` comes from the `EXTENSION_PREFERENCES` env (trigger keywords mixed in) and is updated before `on_preferences_update` runs. Saved values: `~/.config/ulauncher/ext_preferences/math-symbols.json`.
 - Manifest: required `api_version`, `authors`, `name`, `icon`, `triggers`, and each trigger needs `name`. Preference types: input, checkbox, number, select, text. A number needs an int `default_value`, and only numbers take `min` and `max`. `modes/extensions/extension_manifest.py`
 - Extensions run as `/usr/bin/python3 <realpath>/main.py` with Ulauncher on PYTHONPATH, and `VERBOSE=1` under `start -v`. Symlinked extension dirs are followed. `modes/extensions/extension_service.py`, `extension_finder.py`
